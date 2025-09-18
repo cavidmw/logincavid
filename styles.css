@@ -1,0 +1,176 @@
+/* --- Arkaplan Katmanları --- */
+.bg{position:fixed; inset:0; z-index:-1; overflow:hidden}
+.bg__gradient, .bg__blobs, .bg__spotlight, .bg__noise{position:absolute; inset:0}
+
+/* ana gradient */
+.bg__gradient{
+  background:
+    radial-gradient(1200px 800px at 15% 15%, #221a55 0%, transparent 60%),
+    radial-gradient(1100px 700px at 85% 25%, #0b3d91 0%, transparent 60%),
+    linear-gradient(180deg, #0b1020 0%, #0b0f1a 60%, #0b1020 100%);
+  filter:saturate(120%);
+}
+
+/* blur bloblar */
+.bg__blobs::before,
+.bg__blobs::after{
+  content:"";
+  position:absolute; width:60vmax; height:60vmax; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(124,92,255,.8), rgba(124,92,255,0) 60%);
+  filter:blur(var(--blur-xl));
+  opacity:.55; transform:translate(-10%, -10%);
+}
+.bg__blobs::after{
+  background:radial-gradient(circle at 70% 40%, rgba(59,130,246,.85), rgba(59,130,246,0) 60%);
+  transform:translate(50%, 10%);
+  opacity:.50;
+}
+@keyframes float {
+  0%{transform:translate(-10%, -10%)}
+  50%{transform:translate(-12%, -6%)}
+  100%{transform:translate(-10%, -10%)}
+}
+.bg__blobs::before{animation:float 18s ease-in-out infinite}
+
+/* mouse spotlight */
+.bg__spotlight{
+  background:
+    radial-gradient(250px 250px at var(--mx) var(--my), rgba(255,255,255,.08), transparent 60%);
+  pointer-events:none;
+}
+
+/* noise overlay */
+.bg__noise{
+  background-image:url("../ASSETS/noise.png"); /* dosya adı: noise.png */
+  background-repeat:repeat;
+  background-size:auto;          /* orijinal piksel boyutu */
+  image-rendering:crisp-edges;   /* zoom’da daha temiz */
+  opacity:.12; 
+  mix-blend-mode:soft-light;
+}
+
+/* --- Header --- */
+.site-header{position:sticky; top:0; backdrop-filter:blur(14px); background:linear-gradient(to bottom, rgba(8,12,26,.65), transparent); border-bottom:1px solid rgba(255,255,255,.06)}
+.site-header .container{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+.brand{font-weight:700; letter-spacing:.6px}
+.nav{display:flex; gap:12px; align-items:center}
+.nav-link{color:var(--text); opacity:.8; text-decoration:none; padding:.35rem .6rem; border-radius:10px}
+.nav-link.is-active{background:rgba(255,255,255,.06)}
+.nav-btn{
+  padding:.45rem .8rem; border-radius:12px; border:1px solid var(--card-border);
+  background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  color:var(--text); cursor:pointer;
+}
+
+/* --- Ana --- */
+.main{display:grid; place-items:center; min-height:calc(100dvh - 72px)}
+.card{
+  width:min(480px, 92vw);
+  background:var(--card-rgba);
+  border:1px solid var(--card-border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-lg);
+  backdrop-filter:blur(20px) saturate(120%);
+  padding:26px 26px 18px;
+  transform-style:preserve-3d;
+}
+.card h1{margin:0 0 4px; font-size:1.6rem}
+.card .sub{margin:0 0 18px; color:var(--muted)}
+
+label{display:block; margin:12px 0 6px; font-size:.93rem; color:#c6d2f8}
+input{
+  width:100%; padding:12px 14px; border-radius:12px;
+  background:rgba(10,14,28,.6); border:1px solid rgba(200,220,255,.12);
+  color:var(--text); outline:none; transition:border-color .2s, box-shadow .2s;
+}
+input:focus{
+  border-color:rgba(124,92,255,.5);
+  box-shadow:0 0 0 4px rgba(124,92,255,.18);
+}
+
+.row{display:flex; justify-content:flex-end; margin:8px 0 12px}
+.muted{color:var(--muted); text-decoration:none}
+.btn-primary{
+  width:100%;
+  margin-top:6px;
+  padding:12px 14px; border-radius:14px; border:0;
+  color:white; font-weight:600; cursor:pointer;
+  background-image:linear-gradient(135deg, var(--primary1), var(--primary2));
+  box-shadow:0 10px 30px rgba(99,102,241,.35), inset 0 1px 0 rgba(255,255,255,.15);
+  position:relative; overflow:hidden;
+}
+.btn-primary:active{transform:translateY(1px)}
+
+/* ripple */
+.btn-primary .ripple{
+  position:absolute; border-radius:50%;
+  inset:auto; width:12px; height:12px; pointer-events:none;
+  background:rgba(255,255,255,.35); transform:translate(-50%,-50%) scale(1);
+  animation:ripple .55s ease-out forwards;
+}
+@keyframes ripple{to{opacity:0; transform:translate(-50%,-50%) scale(40)}}
+
+/* alt satır */
+.card-footer{display:flex; gap:8px; align-items:center; justify-content:center; margin-top:10px; color:var(--muted)}
+.card-footer .link{background:none; border:0; color:#b7c5ff; cursor:pointer}
+
+/* form mesajları */
+.form-msg{min-height:22px; margin-top:10px; font-size:.95rem}
+.form-msg.ok{color:var(--success)}
+.form-msg.err{color:var(--danger)}
+
+/* (İstersen kaldırılabilir) Eski dialog stilleri – kullanmıyoruz */
+#registerDialog{
+  max-width:min(520px, 92vw);
+  border:1px solid var(--card-border);
+  background:var(--card-rgba);
+  padding:18px 18px 12px;
+  border-radius:20px;
+  color:var(--text);
+  box-shadow:var(--shadow-lg);
+  backdrop-filter:blur(20px) saturate(120%);
+}
+#registerDialog::backdrop{background:rgba(6,10,20,.65); backdrop-filter:blur(4px)}
+.dialog-form h2{margin:0 0 8px}
+.dialog-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:8px}
+.btn-ghost{
+  padding:10px 14px; border-radius:12px; background:transparent;
+  border:1px solid var(--card-border); color:var(--text); cursor:pointer;
+}
+
+/* toast */
+#toast{
+  position:fixed; inset:auto 50px 40px 50px;
+  display:flex; justify-content:center; pointer-events:none;
+}
+#toast .t{
+  pointer-events:auto;
+  background:rgba(18,24,48,.9); border:1px solid rgba(200,220,255,.12);
+  padding:10px 14px; border-radius:12px; box-shadow:var(--shadow-lg);
+  animation:fadeUp .2s ease-out;
+}
+#toast .t.ok{border-color:rgba(52,211,153,.35)}
+#toast .t.err{border-color:rgba(239,68,68,.35)}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(8px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+/* responsive */
+@media (max-width:520px){
+  .card{padding:20px 16px;}
+}
+
+/* kart geçiş animasyonu + yardımcılar */
+.hidden{display:none}
+.card.slide-in{animation: slideIn .4s ease-out;}
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+
+#registerCard .card-footer {
+  margin-top: 12px;           /* üstten biraz boşluk */
+  justify-content: center;    /* ortala */
+}

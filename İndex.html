@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login · Cavid</title>
+
+  <!-- Font (opsiyonel; internet yoksa sistem fontu kullanılır) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="CSS/tokens.css">
+  <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body>
+  <!-- Arka plan katmanları -->
+  <div class="bg">
+    <div class="bg__gradient"></div>
+    <div class="bg__blobs"></div>
+    <div class="bg__spotlight"></div>
+    <div class="bg__noise"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="brand">Cavid Login</div>
+      <nav class="nav">
+        <a href="#" class="nav-link is-active" data-view="login">Giriş</a>
+        <button class="nav-btn" id="openRegister">Kayıt Ol</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Ana Bölüm -->
+  <main class="container main">
+
+    <!-- Login Kartı -->
+    <section class="card" id="loginCard" data-tilt>
+      <h1>Tekrar Hoş Geldin</h1>
+      <p class="sub">Hesabına giriş yap ve devam et.</p>
+
+      <form id="loginForm" autocomplete="off">
+        <label for="login-username">Kullanıcı Adı</label>
+        <input id="login-username" name="username" type="text" placeholder="kullanıcı adı" required>
+
+        <label for="login-password">Şifre</label>
+        <input id="login-password" name="password" type="password" placeholder="••••••••" required>
+
+        <div class="row">
+          <a class="muted small" href="#" id="forgot">Şifremi Unuttum</a>
+        </div>
+
+        <button class="btn-primary" id="loginBtn" type="submit">Giriş Yap</button>
+        <div id="loginMsg" class="form-msg" aria-live="polite"></div>
+      </form>
+
+      <footer class="card-footer">
+        <span>Hesabın yok mu?</span>
+        <button class="link" id="openRegister2" type="button">Kayıt ol</button>
+      </footer>
+    </section>
+
+    <!-- Kayıt Kartı -->
+    <section class="card hidden" id="registerCard" data-tilt>
+      <h1>Hesap Oluştur</h1>
+      <p class="sub">Yeni hesap bilgilerini gir.</p>
+
+      <form id="registerForm" autocomplete="off">
+        <label for="reg-username">Kullanıcı Adı</label>
+        <input id="reg-username" name="username" type="text" minlength="3" required>
+
+        <label for="reg-password">Şifre</label>
+        <input id="reg-password" name="password" type="password" minlength="6" required>
+
+        <label for="reg-password2">Şifre (Tekrar)</label>
+        <input id="reg-password2" name="password2" type="password" minlength="6" required>
+
+        <div id="registerMsg" class="form-msg"></div>
+
+        <button class="btn-primary" id="createAccountBtn" type="submit">Hesap Oluştur</button>
+        <footer class="card-footer">
+  <button type="button" class="link" id="backToLogin">Geri Dön</button>
+</footer>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- Toast -->
+  <div id="toast" aria-live="polite"></div>
+
+  <script src="JS/tilt.js" defer></script>
+  <script src="JS/app.js" defer></script>
+</body>
+</html>
